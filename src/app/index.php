@@ -21,7 +21,7 @@ include('../config/db.php');
                <a href=""> HOME</a>
             </li>
             <?php
-            if(empty($_SESSION["email"])){
+            if(is_null($_SESSION["email"] && is_null($_SESSION["identifier"]))){
                 echo"
                  <li>
                  <a href='./register.php'> signup</a>
@@ -38,15 +38,60 @@ include('../config/db.php');
             ?>
         </ul>
     </nav>
-            <table>
-                <th>
+                <?php
+                if(!empty($_SESSION["identifier"])){
+                        echo"
+                        <button><a href='./create/event.php'>create new event<a/> </button>
+                        ";
+                }
+                ?>
+            <table border=2 cellspacing=3>
+                <thead >
+               
                     <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
+                        <th>Event ID</th>
+                        <th>Event name</th>
+                        <th>Event location</th>
+                        <th>Event category</th>
+                        <th>Event date</th>
+                        <th>Event description</th>
+                        <th>contac info</th>
+                        <?php
+                if(!empty($_SESSION["identifier"])){
+                        echo"
+                       <th colspan=2>action</th>
+                        ";
+                }
+                ?>
+                        
                     </tr>
-                </th>
+                  
+                
+                </thead>
+                <tbody>
+                    <?php
+                        $sql = "SELECT * FROM events";
+                        $result = mysqli_query($conn,$sql);
+                        while($row = mysqli_fetch_assoc($result)){
+                            echo"
+                              <tr>
+                        <td>".$row['event_id']."</td>
+                        <td>".$row['name']."</td>
+                        <td>".$row['location']."</td>
+                        <td>".$row['category']."</td>
+                        <td>".$row['date_time']."</td>
+                        <td>".$row['description']."</td>
+                        <td>".$row['contact_info']."</td>
+                       ";if(!empty($_SESSION["identifier"])){
+                        echo " 
+                        <td><a href='./update/event.php?eventid=".$row['event_id']."'>update<a/></td>
+                        <td><a href='./delete/event.php?eventid=".$row['event_id']."'>delete<a/></td>
+                    </tr>
+                            ";}
+                        }
+                    ?>
+                </tbody>
+
             </table>
 </body>
 </html>

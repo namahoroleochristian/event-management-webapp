@@ -21,18 +21,18 @@ include('../../config/db.php');
                <a href="../index.php"> HOME</a>
             </li>
             <?php
-            if(empty($_SESSION["email"])){
+            if(is_null($_SESSION["email"] && is_null($_SESSION["identifier"]))){
                 echo"
                  <li>
-                 <a href='../../auth/register.php'> signup</a>
+                 <a href='./register.php'> signup</a>
                  </li>
                  <li>
-               <a href='../../auth/login.php'> signup</a>
+               <a href='./auth/login.php'> login</a>
             </li>
                 ";
             }else{
                 echo" <li>   
-                <a href='../../auth/logout.php'> logout</a>
+                <a href='../auth/logout.php'> logout</a>
             </li>";
             }
             ?>
