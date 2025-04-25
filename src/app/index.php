@@ -18,18 +18,35 @@ include('../config/db.php');
         </ul>
         <ul>
             <li>
-                HOME
+               <a href=""> HOME</a>
             </li>
-            <li>
-                login
+            <?php
+            if(empty($_SESSION["email"])){
+                echo"
+                 <li>
+                 <a href='./register.php'> signup</a>
+                 </li>
+                 <li>
+               <a href='./auth/login.php'> login</a>
             </li>
-            <li>
-                signup
-            </li>
-            <li>
-                logout
-            </li>
+                ";
+            }else{
+                echo" <li>   
+                <a href='../auth/logout.php'> logout</a>
+            </li>";
+            }
+            ?>
         </ul>
     </nav>
+            <table>
+                <th>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </th>
+            </table>
 </body>
 </html>
